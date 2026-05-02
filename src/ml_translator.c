@@ -1,6 +1,3 @@
-//  CITS2002 Project 1 2024
-//  Student1:   24331036   Johar Khan
-//  Student2:   24307949   Muhammad Aman Sohail
 //  Platform:   Linux
 
 #include <stdio.h>
