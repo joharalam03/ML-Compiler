@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
 
     for (int i = 2; i < argc; i++) {
         strncpy(commandArgs[num_commandArgs], argv[i], 50);
-        commandArgs[num_commandArgs][50] = '\0';
+        commandArgs[num_commandArgs][49] = '\0';
         num_commandArgs++;
     }
 
@@ -171,10 +171,10 @@ void checkSyntax(char *line) {
     }
 
     //Comments have already been removed
-    if (strstr(line, "=@!$^&_\''"">?~`")) {
+    if (strpbrk(line, "=@!$^&_'\">?~`")) {
         syntax_error = true;
         fprintf(stderr, "! Syntax error on line %d => Unsuppported characters included in the line.\n", line_num);
-        EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
 
     //Check if a variable identifier contains a digit
@@ -192,13 +192,13 @@ void checkSyntax(char *line) {
         if (contains_digit) {
             syntax_error = true;
             fprintf(stderr, "! Syntax error on line %d => Variable identifier contains a digit.\n", line_num);
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
         
         if (num_char > 12) {
             syntax_error = true;
             fprintf(stderr, "! Syntax error on line %d => Variable identifier length exceeded (> 12).\n", line_num);
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -218,13 +218,13 @@ void checkSyntax(char *line) {
         if (contains_digit) {
             syntax_error = true;
             fprintf(stderr, "! Syntax error on line %d => Function identifier contains a digit.\n", line_num);
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
 
         if (num_char > 12) {
             syntax_error = true;
             fprintf(stderr, "! Syntax error on line %d => Function identifier lenght exceeded (> 12)\n", line_num);
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
     } 
     //Check function body's syntax
@@ -249,13 +249,13 @@ void checkSyntax(char *line) {
             if (contains_digit) {
                 syntax_error = true;
                 fprintf(stderr, "! Syntax error on line %d => Function's variable identifier contains a digit.\n", line_num);
-                EXIT_FAILURE;
+                exit(EXIT_FAILURE);
             }
             
             if (num_char > 12) {
                 syntax_error = true;
                 fprintf(stderr, "! Syntax error on line %d => Function's variable identifier length exceeded (> 12).\n", line_num);
-                EXIT_FAILURE;
+                exit(EXIT_FAILURE);
             }
         }
         
@@ -265,7 +265,7 @@ void checkSyntax(char *line) {
         if (isspace(line[0])) {
             syntax_error = true;
             fprintf(stderr, "! Syntax error on line %d => Statements not part of a function shouldn't be indented or have any leading whitespace.\n", line_num);
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
     }
 }
@@ -537,7 +537,7 @@ void handlePrint(char *line) {
         }
 
         strncpy(curr_function->printExpression[curr_function->num_print], expr, 50);
-        curr_function->printExpression[curr_function->num_print][50] = '\0';
+        curr_function->printExpression[curr_function->num_print][49] = '\0';
         curr_function->num_print++;
     } 
     
@@ -548,7 +548,7 @@ void handlePrint(char *line) {
         }
 
         strncpy(printExpressions[num_printExpressions], expr, 50);
-        printExpressions[num_printExpressions][50] = '\0';
+        printExpressions[num_printExpressions][49] = '\0';
         num_printExpressions++;
 
     }
@@ -647,7 +647,6 @@ void c_translate(const char *filename) {
 
     if (!file) {
         fprintf(stderr, "Encountered an error creating %s\n", filename);
-        fclose(file);
         return;
     }
 
