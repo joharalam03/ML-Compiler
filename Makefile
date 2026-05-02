@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c11 -lm
 SRC = src/ml_translator.c
 TARGET = ml_translator
 
