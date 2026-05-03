@@ -22,7 +22,7 @@ for ml in "${SCRIPT_DIR}"/sample*.ml; do
     expected="${SCRIPT_DIR}/${name}.expected"
     [[ -f "${expected}" ]] || { echo "SKIP  ${name}"; continue; }
 
-    actual="$("${BIN}" "${ml}" 2>/dev/null || true)"
+    actual="$("${BIN}" "${ml}" 2>&1 || true)"
     want="$(cat "${expected}")"
 
     if [[ "${actual}" == "${want}" ]]; then
