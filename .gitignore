@@ -4,3 +4,4 @@ ml-*.c
 *.out
 .DS_Store
 .vscode/
+ml_translator
